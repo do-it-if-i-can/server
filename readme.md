@@ -14,6 +14,12 @@ docker-compose up
 go run server.go
 ```
 
+- go generated from schema
+
+```
+
+```
+
 ## 技術選定
 
 ## アーキテクチャ

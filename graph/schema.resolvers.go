@@ -3,6 +3,9 @@ package graph
 // This file will be automatically regenerated based on the schema, any resolver implementations
 // will be copied through when generating and any unknown code will be moved to the end.
 
+// このファイルはスキーマに基づき自動的に再生成され、
+// リゾルバの実装は生成時にコピーされ不明なコードは最後の方に移動されます。
+
 import (
 	"context"
 	"fmt"
