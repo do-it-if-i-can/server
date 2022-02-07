@@ -1,0 +1,23 @@
+# This is GraphQL schema file
+
+type Todo {
+  id: ID!
+  text: String!
+  done: Boolean!
+  user: User!
+}
+
+enum Category {
+  TODAY
+  TOMORROW
+  EVER
+}
+
+type User {
+  id: ID!
+  name: String!
+}
+
+type Query {
+  todos(category: Category): [Todo!]!
+}
