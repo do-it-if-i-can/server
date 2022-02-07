@@ -53,3 +53,73 @@ go run github.com/99designs/gqlgen init
 スキーマが単なるmodelの定義を表す用語なのに対し、リゾルバは実際のデータ操作を行うものを指す。
 リゾルバの実態は特定のフィールドのデータを返す関数。
 
+## define schema
+gqlgenはスキーマファーストライブラリのため、コードを書く前にGraphQLスキーマ定義言語を使用しAPIを記述します。
+デフォルトでは`schema.graphql`というファイルに記述します。
+これは必要に応じて分割することが可能です。
+
+## implement the resolvers
+`go run github.com/99designs/gqlgen generate` gqlgenのgenerateコマンドを実行するとスキーマファイルがmodelと比較され
+可能な場合はmodelに直接バインドされます。
+自動生成直後のリゾルバは実装がないのでやっていく。(DBではなく一旦メモリ内への格納)
+
+**resolver.go**
+```go
+package graph
+
+import "github.com/do-it-if-i-can/server/graph/model"
+
+type Resolver struct {
+	todos []*model.Todo
+}
+```
+
+`resolver.go`にアプリの依存関係を宣言する。
+
+**schema.resolvers.go**
+```go
+func (r *mutationResolver) CreateTodo(ctx context.Context, input model.NewTodo) (*model.Todo, error) {
+	todo := &model.Todo{
+		Text: input.Text,
+		ID:   fmt.Sprintf("T%d", rand.Int()),
+		User: &model.User{ID: input.UserID, Name: "user " + input.UserID},
+	}
+	r.todos = append(r.todos, todo)
+	return todo, nil
+}
+
+func (r *queryResolver) Todos(ctx context.Context) ([]*model.Todo, error) {
+	return r.todos, nil
+}
+```
+
+## startup server
+```
+go run server.go
+```
+
+→createTodo sample mutation
+```
+mutation createTodo {
+  createTodo(input: { text: "todo", userId: "1" }) {
+    user {
+      id
+    }
+    text
+    done
+  }
+}
+```
+
+→list todos sample query
+```
+query findTodos {
+  todos {
+    text
+    done
+    user {
+      name
+    }
+  }
+}
+```
