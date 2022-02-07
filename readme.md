@@ -1,5 +1,7 @@
 # できたらやる server repository
 
+[色々お勉強ノート](https://github.com/do-it-if-i-can/server/tree/master/doc)
+
 ## 開発環境
 
 - start up container 
