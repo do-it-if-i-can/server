@@ -1,4 +1,4 @@
-# できたらやるチーム server repository
+# やれたらやるチーム server repository
 **色々お勉強系資料**
 - gqlgen
 https://github.com/do-it-if-i-can/server/tree/master/doc/gqlgen.md
