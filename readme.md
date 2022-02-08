@@ -79,3 +79,9 @@ go mod vendor
   - graphqlリポジトリへのts生成workflow(server/graph/schema/ ディレクトリ配下の変更をhookして動作する)
 - backend
   - lintやtestなどを行うworkflow, pullreqest時に毎回動作する
+
+## コミットルール
+
+- gitmojiを使用
+
+## ブランチルール
