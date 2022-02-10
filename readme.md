@@ -85,3 +85,9 @@ go mod vendor
 - gitmojiを使用
 
 ## ブランチルール
+masterを元にブランチを切ってPRを出す。
+
+命名規則は以下に従う
+[feature, fix, refactor, doc, test]/zzz-zzzXzz
+
+例： feature/todo-get-api
