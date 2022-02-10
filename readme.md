@@ -20,7 +20,7 @@ docker-compose up
 - start up graphiql
 
 ```
-go run server.go
+go run /cmd/main.go
 ```
 
 - go generated from schema
