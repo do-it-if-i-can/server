@@ -88,6 +88,6 @@ go mod vendor
 masterを元にブランチを切ってPRを出す。
 
 命名規則は以下に従う
-[feature, fix, refactor, doc, test]/zzz-zzzXzz
+[feature, fix, refactor, doc, test, env]/zzz-zzzXzz
 
 例： feature/todo-get-api
