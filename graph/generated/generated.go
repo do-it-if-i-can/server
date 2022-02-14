@@ -216,7 +216,7 @@ func (ec *executionContext) introspectType(name string) (*introspection.Type, er
 }
 
 var sources = []*ast.Source{
-	{Name: "src/graph/schema/schema.graphqls", Input: `type Todo {
+	{Name: "graph/schema/schema.graphqls", Input: `type Todo {
   id: ID!
   text: String!
   done: Boolean!
@@ -241,6 +241,7 @@ type Query {
 input NewTodo {
   text: String!
   userId: String!
+  category: Category!
 }
 
 type Mutation {
@@ -260,7 +261,7 @@ func (ec *executionContext) field_Mutation_createTodo_args(ctx context.Context, 
 	var arg0 model.NewTodo
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNNewTodo2githubᚗcomᚋdoᚑitᚑifᚑiᚑcanᚋserverᚋsrcᚋgraphᚋmodelᚐNewTodo(ctx, tmp)
+		arg0, err = ec.unmarshalNNewTodo2githubᚗcomᚋdoᚑitᚑifᚑiᚑcanᚋserverᚋgraphᚋmodelᚐNewTodo(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -290,7 +291,7 @@ func (ec *executionContext) field_Query_todos_args(ctx context.Context, rawArgs 
 	var arg0 *model.Category
 	if tmp, ok := rawArgs["category"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("category"))
-		arg0, err = ec.unmarshalOCategory2ᚖgithubᚗcomᚋdoᚑitᚑifᚑiᚑcanᚋserverᚋsrcᚋgraphᚋmodelᚐCategory(ctx, tmp)
+		arg0, err = ec.unmarshalOCategory2ᚖgithubᚗcomᚋdoᚑitᚑifᚑiᚑcanᚋserverᚋgraphᚋmodelᚐCategory(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -376,7 +377,7 @@ func (ec *executionContext) _Mutation_createTodo(ctx context.Context, field grap
 	}
 	res := resTmp.(*model.Todo)
 	fc.Result = res
-	return ec.marshalNTodo2ᚖgithubᚗcomᚋdoᚑitᚑifᚑiᚑcanᚋserverᚋsrcᚋgraphᚋmodelᚐTodo(ctx, field.Selections, res)
+	return ec.marshalNTodo2ᚖgithubᚗcomᚋdoᚑitᚑifᚑiᚑcanᚋserverᚋgraphᚋmodelᚐTodo(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_todos(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -418,7 +419,7 @@ func (ec *executionContext) _Query_todos(ctx context.Context, field graphql.Coll
 	}
 	res := resTmp.([]*model.Todo)
 	fc.Result = res
-	return ec.marshalNTodo2ᚕᚖgithubᚗcomᚋdoᚑitᚑifᚑiᚑcanᚋserverᚋsrcᚋgraphᚋmodelᚐTodoᚄ(ctx, field.Selections, res)
+	return ec.marshalNTodo2ᚕᚖgithubᚗcomᚋdoᚑitᚑifᚑiᚑcanᚋserverᚋgraphᚋmodelᚐTodoᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query___type(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -1849,6 +1850,14 @@ func (ec *executionContext) unmarshalInputNewTodo(ctx context.Context, obj inter
 			if err != nil {
 				return it, err
 			}
+		case "category":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("category"))
+			it.Category, err = ec.unmarshalNCategory2githubᚗcomᚋdoᚑitᚑifᚑiᚑcanᚋserverᚋgraphᚋmodelᚐCategory(ctx, v)
+			if err != nil {
+				return it, err
+			}
 		}
 	}
 
@@ -2496,6 +2505,16 @@ func (ec *executionContext) marshalNBoolean2bool(ctx context.Context, sel ast.Se
 	return res
 }
 
+func (ec *executionContext) unmarshalNCategory2githubᚗcomᚋdoᚑitᚑifᚑiᚑcanᚋserverᚋgraphᚋmodelᚐCategory(ctx context.Context, v interface{}) (model.Category, error) {
+	var res model.Category
+	err := res.UnmarshalGQL(v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) marshalNCategory2githubᚗcomᚋdoᚑitᚑifᚑiᚑcanᚋserverᚋgraphᚋmodelᚐCategory(ctx context.Context, sel ast.SelectionSet, v model.Category) graphql.Marshaler {
+	return v
+}
+
 func (ec *executionContext) unmarshalNID2string(ctx context.Context, v interface{}) (string, error) {
 	res, err := graphql.UnmarshalID(v)
 	return res, graphql.ErrorOnPath(ctx, err)
@@ -2511,7 +2530,7 @@ func (ec *executionContext) marshalNID2string(ctx context.Context, sel ast.Selec
 	return res
 }
 
-func (ec *executionContext) unmarshalNNewTodo2githubᚗcomᚋdoᚑitᚑifᚑiᚑcanᚋserverᚋsrcᚋgraphᚋmodelᚐNewTodo(ctx context.Context, v interface{}) (model.NewTodo, error) {
+func (ec *executionContext) unmarshalNNewTodo2githubᚗcomᚋdoᚑitᚑifᚑiᚑcanᚋserverᚋgraphᚋmodelᚐNewTodo(ctx context.Context, v interface{}) (model.NewTodo, error) {
 	res, err := ec.unmarshalInputNewTodo(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
@@ -2531,11 +2550,11 @@ func (ec *executionContext) marshalNString2string(ctx context.Context, sel ast.S
 	return res
 }
 
-func (ec *executionContext) marshalNTodo2githubᚗcomᚋdoᚑitᚑifᚑiᚑcanᚋserverᚋsrcᚋgraphᚋmodelᚐTodo(ctx context.Context, sel ast.SelectionSet, v model.Todo) graphql.Marshaler {
+func (ec *executionContext) marshalNTodo2githubᚗcomᚋdoᚑitᚑifᚑiᚑcanᚋserverᚋgraphᚋmodelᚐTodo(ctx context.Context, sel ast.SelectionSet, v model.Todo) graphql.Marshaler {
 	return ec._Todo(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNTodo2ᚕᚖgithubᚗcomᚋdoᚑitᚑifᚑiᚑcanᚋserverᚋsrcᚋgraphᚋmodelᚐTodoᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.Todo) graphql.Marshaler {
+func (ec *executionContext) marshalNTodo2ᚕᚖgithubᚗcomᚋdoᚑitᚑifᚑiᚑcanᚋserverᚋgraphᚋmodelᚐTodoᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.Todo) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -2559,7 +2578,7 @@ func (ec *executionContext) marshalNTodo2ᚕᚖgithubᚗcomᚋdoᚑitᚑifᚑi�
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNTodo2ᚖgithubᚗcomᚋdoᚑitᚑifᚑiᚑcanᚋserverᚋsrcᚋgraphᚋmodelᚐTodo(ctx, sel, v[i])
+			ret[i] = ec.marshalNTodo2ᚖgithubᚗcomᚋdoᚑitᚑifᚑiᚑcanᚋserverᚋgraphᚋmodelᚐTodo(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -2579,7 +2598,7 @@ func (ec *executionContext) marshalNTodo2ᚕᚖgithubᚗcomᚋdoᚑitᚑifᚑi�
 	return ret
 }
 
-func (ec *executionContext) marshalNTodo2ᚖgithubᚗcomᚋdoᚑitᚑifᚑiᚑcanᚋserverᚋsrcᚋgraphᚋmodelᚐTodo(ctx context.Context, sel ast.SelectionSet, v *model.Todo) graphql.Marshaler {
+func (ec *executionContext) marshalNTodo2ᚖgithubᚗcomᚋdoᚑitᚑifᚑiᚑcanᚋserverᚋgraphᚋmodelᚐTodo(ctx context.Context, sel ast.SelectionSet, v *model.Todo) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -2868,7 +2887,7 @@ func (ec *executionContext) marshalOBoolean2ᚖbool(ctx context.Context, sel ast
 	return res
 }
 
-func (ec *executionContext) unmarshalOCategory2ᚖgithubᚗcomᚋdoᚑitᚑifᚑiᚑcanᚋserverᚋsrcᚋgraphᚋmodelᚐCategory(ctx context.Context, v interface{}) (*model.Category, error) {
+func (ec *executionContext) unmarshalOCategory2ᚖgithubᚗcomᚋdoᚑitᚑifᚑiᚑcanᚋserverᚋgraphᚋmodelᚐCategory(ctx context.Context, v interface{}) (*model.Category, error) {
 	if v == nil {
 		return nil, nil
 	}
@@ -2877,7 +2896,7 @@ func (ec *executionContext) unmarshalOCategory2ᚖgithubᚗcomᚋdoᚑitᚑifᚑ
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalOCategory2ᚖgithubᚗcomᚋdoᚑitᚑifᚑiᚑcanᚋserverᚋsrcᚋgraphᚋmodelᚐCategory(ctx context.Context, sel ast.SelectionSet, v *model.Category) graphql.Marshaler {
+func (ec *executionContext) marshalOCategory2ᚖgithubᚗcomᚋdoᚑitᚑifᚑiᚑcanᚋserverᚋgraphᚋmodelᚐCategory(ctx context.Context, sel ast.SelectionSet, v *model.Category) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
