@@ -23,6 +23,7 @@ type Query {
 input NewTodo {
   text: String!
   userId: String!
+  category: Category!
 }
 
 type Mutation {
