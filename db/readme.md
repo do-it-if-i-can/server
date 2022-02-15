@@ -1,5 +1,5 @@
 
-# ER図[wip]
+# ER図
 
 ```mermaid
 %%{init:{'theme':'base','themeVariables':{'primaryColor':'#6A7FAB','lineColor':'#6A7FAB','background':'#FFF'}}}%%

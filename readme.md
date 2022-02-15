@@ -14,7 +14,7 @@ https://github.com/alexzimmer96/gqlgen-example
 
 ## 開発環境
 
-- start up container (launch graphQL)
+- start up container (launch local graphiQL)
 
 ```
 docker-compose up -d
@@ -32,15 +32,19 @@ docker-compose up -d
 go mod vendor
 ```
 
-## 技術選定
+- deploy
+→ TODO: デプロイ用workflow作る
+
+## 技術
 
 - Docker, docker-compose
 - gin 
 - gorm 
 - gqlgen 
 - [PlanetScale](https://planetscale.com/)
-- GCP(GCR, CloudRun ...etc)
+- GCP(GCR, CloudRun, CloudScheduler, CloudFunctions, Pub/Sub)
 - Github Actions
+- Terraform
 ## アーキテクチャ
 
 ### core concept
@@ -51,14 +55,17 @@ go mod vendor
 - repository
 
 ### ディレクトリ構成(draft, 変えたい)
+```
+- cmd/main.go (アプリケーションのエントリポイント)
 - /doc (メモ用)
+- /terraform (tfファイル格納用)
 - /graph (graphqlに関するディレクトリ)
  - /generated (schemaを元に生成されるgoコード)
  - /model (modelとなるgoのコード)
  - /schema (graphql schema SDLで記述されたschemaを格納する、このschemaを元に各コードが自動生成される)
  - resolver.go (自分でresolverを追加定義する場所)
  - *.resolvers.go (schemaによって自動生成されるresolver, schema配下のファイルと1対1になる)
-- server.go (アプリケーションのエントリポイント)
+```
 ## データベース
 
 - local
@@ -67,18 +74,16 @@ go mod vendor
   - PlanetScale(MySQL)
 
 ## ER図
-https://github.com/do-it-if-i-can/server/tree/master/db/diagram.md
+https://github.com/do-it-if-i-can/server/tree/master/db
 
 ## CI/CD
 ### Actions(WIP)
 - server-prod-release
-  - サーバーのprod環境へのデプロイworkflow
-- server-dev-release
-  - サーバーのdev環境へのデプロイworkflow
+  - サーバーのprod環境へのデプロイworkflow?
 - generate-client-graphql
   - graphqlリポジトリへのts生成workflow(server/graph/schema/ ディレクトリ配下の変更をhookして動作する)
 - backend
-  - lintやtestなどを行うworkflow, pullreqest時に毎回動作する
+  - lintやtestなどを行うworkflow, pullreqest時に毎回動作する?
 
 ## コミットルール
 
