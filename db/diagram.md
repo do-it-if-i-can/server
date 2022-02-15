@@ -2,10 +2,10 @@
 # ER図[wip]
 
 ```mermaid
-%%{init:{'theme':'base'}}%%
+%%{init:{'theme':'base','themeVariables':{'primaryColor':'#6A7FAB','lineColor':'#6A7FAB','background':'#FFF'}}}%%
 
 
-erDiagram fill:#fff
+erDiagram
 
 user ||--o{ post : owns
 post ||--o{ updoot : has
