@@ -1,8 +1,8 @@
 terraform {
-  required_version = "0.14.3"
+  required_version = "~> 1.1.5"
 }
 
 module "cloud_run_api" {
-  source = "../../gcp/cloud_run"
-  project = var.project
+  source = "../../gcp/cloud-run"
+  project = "qin-todo-341312"
 }

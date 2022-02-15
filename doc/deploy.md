@@ -84,3 +84,57 @@ gcloud auth configure-docker
 ` ~/.docker/config.json`に認証情報が保存された。
 ここでdocker pushすると今度は成功したみたい🙆‍♂️
 
+
+## terraformインストールする
+https://learn.hashicorp.com/tutorials/terraform/install-cli
+
+```
+brew tap hashicorp/tap
+```
+
+```
+brew install hashicorp/tap/terraform
+```
+
+```
+❯ terraform -version
+Terraform v1.1.5
+on darwin_arm64
+```
+
+## cloud runにデプロイする
+
+```
+cd environments/production
+
+terraform init # Terraform設定ファイルを標準形式とスタイルに書き換えるために使用。
+terraform validate # terraformファイルの構文を検証
+==> Success! The configuration is valid.
+terraform plan # 実行計画の作成
+terraform apply # planの計画に沿って動作を適用する
+```
+
+### planで怒られる
+providerという記述が足りてないようなので追加した
+
+```
+provider "google" {
+  project     = "qin-todo-341312"
+  region      = "asia-northeast1"
+}
+```
+
+上記でも怒られるので以下を実行する必要があるらしい
+
+```
+gcloud auth application-default login
+```
+
+> こちらはGoやら各言語でのSDKを使ったプログラムを実行する際の認証を得るために使います。
+> https://christina04.hatenablog.com/entry/gcp-auth
+
+認証情報がローカルに保存されたのでこうすればいける？
+→terraform plan通ったっぽい
+
+### applyで怒られる
+→Cloud Run自体を有効化していなかった
