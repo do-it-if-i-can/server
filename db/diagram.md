@@ -2,7 +2,8 @@
 # ER図[wip]
 
 ```mermaid
-%%{init:{'theme':'base'}}%%
+%%{init:{'theme':'base', 'fill':'#ffffff'}}%%
+
 
 erDiagram
 
