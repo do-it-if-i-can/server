@@ -2,6 +2,8 @@
 # ER図[wip]
 
 ```mermaid
+%%{init:{'theme':'base'}}%%
+
 erDiagram
 
 user ||--o{ post : owns

@@ -14,25 +14,19 @@ https://github.com/alexzimmer96/gqlgen-example
 
 ## 開発環境
 
-- start up container 
+- start up container (launch graphQL)
 
 ```
-docker-compose up
+docker-compose up -d
 ```
 
-- start up graphiql
-
-```
-go run /cmd/main.go
-```
-
-- go generated from schema
+- go file generate from schema
 
 ```
  go run gqlgen.go
 ```
 
-- go getした後
+- after go get 
 
 ```
 go mod vendor
@@ -76,7 +70,7 @@ go mod vendor
 https://github.com/do-it-if-i-can/server/tree/master/db/diagram.md
 
 ## CI/CD
-### Actions
+### Actions(WIP)
 - server-prod-release
   - サーバーのprod環境へのデプロイworkflow
 - server-dev-release
