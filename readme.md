@@ -1,5 +1,8 @@
 # やれたらやるチーム server repository
 **色々お勉強系資料**
+- deploy手順 
+https://github.com/do-it-if-i-can/server/tree/master/doc/deploy.md
+
 - gqlgen
 https://github.com/do-it-if-i-can/server/tree/master/doc/gqlgen.md
 
@@ -68,6 +71,9 @@ go mod vendor
   - Docker(MySQL)
 - prod
   - PlanetScale(MySQL)
+
+## ER図
+https://github.com/do-it-if-i-can/server/tree/master/db/diagram.md
 
 ## CI/CD
 ### Actions
