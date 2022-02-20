@@ -7,28 +7,25 @@
 
 erDiagram
 
-user ||--o{ post : owns
-post ||--o{ updoot : has
-user }|--o{ updoot : does
+users ||--o{ todos : owns
 
-user {
-  number id
-  string username
-  string email
-  string password
+users {
+  int id
+  string name
+  string icon
+  datetime created_at
+  datetime updated_at
 }
 
-post {
-  number id
+todos {
+  int id
+  int user_id
+  string category
+  boolean done
+  int priority
   string title
-  string text
-  number points
-  number voteStatus
-}
-
-updoot {
-  number userId
-  number postId
-  number value
+  string description
+  datetime created_at
+  datetime updated_at
 }
 ```
