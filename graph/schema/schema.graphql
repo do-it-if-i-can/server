@@ -1,9 +1,4 @@
-type Todo {
-  id: ID!
-  text: String!
-  done: Boolean!
-  userId: ID!
-}
+scalar DateTime
 
 enum Category {
   TODAY
@@ -14,6 +9,24 @@ enum Category {
 type User {
   id: ID!
   name: String!
+  avatar: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+
+  todos: [Todo]!
+}
+
+type Todo {
+  id: ID!
+  category: Category!
+  done: Boolean!
+  priority: Int!
+  title: String!
+  description: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+
+  user: User!
 }
 
 type Query {
@@ -21,9 +34,10 @@ type Query {
 }
 
 input NewTodo {
-  text: String!
   userId: String!
   category: Category!
+  title: String!
+  description: String
 }
 
 type Mutation {
