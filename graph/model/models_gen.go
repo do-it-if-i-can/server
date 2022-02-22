@@ -13,18 +13,18 @@ type Category string
 const (
 	CategoryToday    Category = "TODAY"
 	CategoryTomorrow Category = "TOMORROW"
-	CategoryEver     Category = "EVER"
+	CategorySomeday  Category = "SOMEDAY"
 )
 
 var AllCategory = []Category{
 	CategoryToday,
 	CategoryTomorrow,
-	CategoryEver,
+	CategorySomeday,
 }
 
 func (e Category) IsValid() bool {
 	switch e {
-	case CategoryToday, CategoryTomorrow, CategoryEver:
+	case CategoryToday, CategoryTomorrow, CategorySomeday:
 		return true
 	}
 	return false

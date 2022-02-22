@@ -26,19 +26,19 @@ func (r *queryResolver) Todos(ctx context.Context, category *model.Category) ([]
 	return r.todos, nil
 }
 
-func (r *todoResolver) UpdatedAt(ctx context.Context, obj *model.Todo) (string, error) {
-	panic(fmt.Errorf("not implemented"))
-}
-
 func (r *todoResolver) CreatedAt(ctx context.Context, obj *model.Todo) (string, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
-func (r *userResolver) UpdatedAt(ctx context.Context, obj *model.User) (string, error) {
+func (r *todoResolver) UpdatedAt(ctx context.Context, obj *model.Todo) (string, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
 func (r *userResolver) CreatedAt(ctx context.Context, obj *model.User) (string, error) {
+	panic(fmt.Errorf("not implemented"))
+}
+
+func (r *userResolver) UpdatedAt(ctx context.Context, obj *model.User) (string, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 

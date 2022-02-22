@@ -3,7 +3,7 @@ scalar DateTime
 enum Category {
   TODAY
   TOMORROW
-  EVER
+  SOMEDAY
 }
 
 type User {
