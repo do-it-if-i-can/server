@@ -26,6 +26,7 @@ docker-compose up -d
  go run gqlgen.go
 ```
 
+
 - after go get 
 
 ```
@@ -45,7 +46,10 @@ go mod vendor
 - GCP(GCR, CloudRun, CloudScheduler, CloudFunctions, Pub/Sub)
 - Github Actions
 - Terraform
+
 ## アーキテクチャ
+
+![Untitled Diagram drawio (1)](https://user-images.githubusercontent.com/65433193/155250526-51c22c92-d8e7-4928-9671-7813f392d054.png)
 
 ### core concept
 
