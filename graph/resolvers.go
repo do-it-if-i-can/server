@@ -27,6 +27,7 @@ type queryResolver struct{ *Resolver }
 // mutation ----------------------------------------------
 
 func (r *mutationResolver) CreateTodo(ctx context.Context, input model.NewTodo) (*model.Todo, error) {
+
 	todo := &model.Todo{
 		Title:  input.Title,
 		ID:     fmt.Sprintf("T%d", rand.Int()),
@@ -38,7 +39,10 @@ func (r *mutationResolver) CreateTodo(ctx context.Context, input model.NewTodo) 
 
 // query  ----------------------------------------------
 
-func (r *queryResolver) Todos(ctx context.Context, category *model.Category) ([]*model.Todo, error) {
-	array := []*model.Todo{}
-	return array, nil
+func (r *queryResolver) GetTodosByCategory(ctx context.Context, input model.GetTodosByCategory) ([]*model.Todo, error) {
+	todos := []*model.Todo{}
+	if err := r.DB.Where(&model.Todo{UserID: input.UserID, Category: input.Category}).Find(&todos).Error; err != nil {
+		return nil, err
+	}
+	return todos, nil
 }

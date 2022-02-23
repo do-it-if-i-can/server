@@ -29,8 +29,13 @@ type Todo {
   user: User!
 }
 
+input GetTodosByCategory {
+  userId: String!
+  category: Category!
+}
+
 type Query {
-  todos(category: Category): [Todo!]!
+  getTodosByCategory(input: GetTodosByCategory!): [Todo!]!
 }
 
 input NewTodo {

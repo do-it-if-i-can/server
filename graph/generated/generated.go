@@ -49,7 +49,7 @@ type ComplexityRoot struct {
 	}
 
 	Query struct {
-		Todos func(childComplexity int, category *model.Category) int
+		GetTodosByCategory func(childComplexity int, input model.GetTodosByCategory) int
 	}
 
 	Todo struct {
@@ -78,7 +78,7 @@ type MutationResolver interface {
 	CreateTodo(ctx context.Context, input model.NewTodo) (*model.Todo, error)
 }
 type QueryResolver interface {
-	Todos(ctx context.Context, category *model.Category) ([]*model.Todo, error)
+	GetTodosByCategory(ctx context.Context, input model.GetTodosByCategory) ([]*model.Todo, error)
 }
 
 type executableSchema struct {
@@ -108,17 +108,17 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Mutation.CreateTodo(childComplexity, args["input"].(model.NewTodo)), true
 
-	case "Query.todos":
-		if e.complexity.Query.Todos == nil {
+	case "Query.getTodosByCategory":
+		if e.complexity.Query.GetTodosByCategory == nil {
 			break
 		}
 
-		args, err := ec.field_Query_todos_args(context.TODO(), rawArgs)
+		args, err := ec.field_Query_getTodosByCategory_args(context.TODO(), rawArgs)
 		if err != nil {
 			return 0, false
 		}
 
-		return e.complexity.Query.Todos(childComplexity, args["category"].(*model.Category)), true
+		return e.complexity.Query.GetTodosByCategory(childComplexity, args["input"].(model.GetTodosByCategory)), true
 
 	case "Todo.category":
 		if e.complexity.Todo.Category == nil {
@@ -320,8 +320,13 @@ type Todo {
   user: User!
 }
 
+input GetTodosByCategory {
+  userId: String!
+  category: Category!
+}
+
 type Query {
-  todos(category: Category): [Todo!]!
+  getTodosByCategory(input: GetTodosByCategory!): [Todo!]!
 }
 
 input NewTodo {
@@ -372,18 +377,18 @@ func (ec *executionContext) field_Query___type_args(ctx context.Context, rawArgs
 	return args, nil
 }
 
-func (ec *executionContext) field_Query_todos_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+func (ec *executionContext) field_Query_getTodosByCategory_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 *model.Category
-	if tmp, ok := rawArgs["category"]; ok {
-		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("category"))
-		arg0, err = ec.unmarshalOCategory2ᚖgithubᚗcomᚋdoᚑitᚑifᚑiᚑcanᚋserverᚋgraphᚋmodelᚐCategory(ctx, tmp)
+	var arg0 model.GetTodosByCategory
+	if tmp, ok := rawArgs["input"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
+		arg0, err = ec.unmarshalNGetTodosByCategory2githubᚗcomᚋdoᚑitᚑifᚑiᚑcanᚋserverᚋgraphᚋmodelᚐGetTodosByCategory(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
 	}
-	args["category"] = arg0
+	args["input"] = arg0
 	return args, nil
 }
 
@@ -467,7 +472,7 @@ func (ec *executionContext) _Mutation_createTodo(ctx context.Context, field grap
 	return ec.marshalNTodo2ᚖgithubᚗcomᚋdoᚑitᚑifᚑiᚑcanᚋserverᚋgraphᚋmodelᚐTodo(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Query_todos(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+func (ec *executionContext) _Query_getTodosByCategory(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -484,7 +489,7 @@ func (ec *executionContext) _Query_todos(ctx context.Context, field graphql.Coll
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	rawArgs := field.ArgumentMap(ec.Variables)
-	args, err := ec.field_Query_todos_args(ctx, rawArgs)
+	args, err := ec.field_Query_getTodosByCategory_args(ctx, rawArgs)
 	if err != nil {
 		ec.Error(ctx, err)
 		return graphql.Null
@@ -492,7 +497,7 @@ func (ec *executionContext) _Query_todos(ctx context.Context, field graphql.Coll
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Query().Todos(rctx, args["category"].(*model.Category))
+		return ec.resolvers.Query().GetTodosByCategory(rctx, args["input"].(model.GetTodosByCategory))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -2221,6 +2226,37 @@ func (ec *executionContext) ___Type_ofType(ctx context.Context, field graphql.Co
 
 // region    **************************** input.gotpl *****************************
 
+func (ec *executionContext) unmarshalInputGetTodosByCategory(ctx context.Context, obj interface{}) (model.GetTodosByCategory, error) {
+	var it model.GetTodosByCategory
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
+
+	for k, v := range asMap {
+		switch k {
+		case "userId":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("userId"))
+			it.UserID, err = ec.unmarshalNString2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "category":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("category"))
+			it.Category, err = ec.unmarshalNCategory2githubᚗcomᚋdoᚑitᚑifᚑiᚑcanᚋserverᚋgraphᚋmodelᚐCategory(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		}
+	}
+
+	return it, nil
+}
+
 func (ec *executionContext) unmarshalInputNewTodo(ctx context.Context, obj interface{}) (model.NewTodo, error) {
 	var it model.NewTodo
 	asMap := map[string]interface{}{}
@@ -2335,7 +2371,7 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 		switch field.Name {
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("Query")
-		case "todos":
+		case "getTodosByCategory":
 			field := field
 
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
@@ -2344,7 +2380,7 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 						ec.Error(ctx, ec.Recover(ctx, r))
 					}
 				}()
-				res = ec._Query_todos(ctx, field)
+				res = ec._Query_getTodosByCategory(ctx, field)
 				if res == graphql.Null {
 					atomic.AddUint32(&invalids, 1)
 				}
@@ -3018,6 +3054,11 @@ func (ec *executionContext) marshalNDateTime2timeᚐTime(ctx context.Context, se
 	return res
 }
 
+func (ec *executionContext) unmarshalNGetTodosByCategory2githubᚗcomᚋdoᚑitᚑifᚑiᚑcanᚋserverᚋgraphᚋmodelᚐGetTodosByCategory(ctx context.Context, v interface{}) (model.GetTodosByCategory, error) {
+	res, err := ec.unmarshalInputGetTodosByCategory(ctx, v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
 func (ec *executionContext) unmarshalNID2string(ctx context.Context, v interface{}) (string, error) {
 	res, err := graphql.UnmarshalID(v)
 	return res, graphql.ErrorOnPath(ctx, err)
@@ -3445,22 +3486,6 @@ func (ec *executionContext) marshalOBoolean2ᚖbool(ctx context.Context, sel ast
 	}
 	res := graphql.MarshalBoolean(*v)
 	return res
-}
-
-func (ec *executionContext) unmarshalOCategory2ᚖgithubᚗcomᚋdoᚑitᚑifᚑiᚑcanᚋserverᚋgraphᚋmodelᚐCategory(ctx context.Context, v interface{}) (*model.Category, error) {
-	if v == nil {
-		return nil, nil
-	}
-	var res = new(model.Category)
-	err := res.UnmarshalGQL(v)
-	return res, graphql.ErrorOnPath(ctx, err)
-}
-
-func (ec *executionContext) marshalOCategory2ᚖgithubᚗcomᚋdoᚑitᚑifᚑiᚑcanᚋserverᚋgraphᚋmodelᚐCategory(ctx context.Context, sel ast.SelectionSet, v *model.Category) graphql.Marshaler {
-	if v == nil {
-		return graphql.Null
-	}
-	return v
 }
 
 func (ec *executionContext) unmarshalOString2string(ctx context.Context, v interface{}) (string, error) {

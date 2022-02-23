@@ -9,6 +9,11 @@ type NewTodo struct {
 	Description string   `json:"description"`
 }
 
+type GetTodosByCategory struct {
+	UserID   string   `json:"user_id"`
+	Category Category `json:"category"`
+}
+
 type Todo struct {
 	ID          string    `json:"id"`
 	Category    Category  `json:"category"`
