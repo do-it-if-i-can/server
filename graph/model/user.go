@@ -3,7 +3,7 @@ package model
 import "time"
 
 type User struct {
-	ID        string    `json:"id"`
+	ID        uint      `json:"id"`
 	Name      string    `json:"name"`
 	Avatar    *string   `json:"avatar"`
 	CreatedAt time.Time `json:"created_at"`
