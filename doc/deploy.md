@@ -1,6 +1,14 @@
 # CloudRunへのデプロイ
 ref: https://zenn.dev/ucwork/articles/eb4242ba124581#%E6%9C%AC%E7%95%AA%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4
 
+**※アプリケーションを変更して再度デプロイするとき(後でCI化予定)**
+dockerコマンドたちを再実行して以下のコマンドを実行する。
+(terraformはあくまで環境をcode化するもので、デプロイのたびにterraform applyするものではない)
+
+```
+gcloud run deploy cloudrun-srv --image=gcr.io/qin-todo-341312/qin-todo-api:latest --region=asia-northeast1
+```
+
 ## GCRでプロジェクト作成しGCP有効にする
 
 1. qin-todoでプロジェクト作成
