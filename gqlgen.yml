@@ -62,4 +62,4 @@ models:
       - github.com/do-it-if-i-can/server/graph/model.Todo
   User:
     model:
-      - - github.com/do-it-if-i-can/server/graph/model.User
+      - github.com/do-it-if-i-can/server/graph/model.User
