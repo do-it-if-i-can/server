@@ -6,6 +6,8 @@ require (
 	github.com/99designs/gqlgen v0.16.0
 	github.com/vektah/gqlparser/v2 v2.2.0
 	gorm.io/gorm v1.23.1
+	github.com/gin-gonic/gin v1.7.7
+	gorm.io/driver/mysql v1.3.2
 )
 
 require (
@@ -30,12 +32,10 @@ require (
 	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b // indirect
-	gorm.io/driver/mysql v1.3.2 // indirect
 )
 
 require (
 	github.com/gin-contrib/sse v0.1.0 // indirect
-	github.com/gin-gonic/gin v1.7.7 // indirect
 	github.com/go-playground/locales v0.14.0 // indirect
 	github.com/go-playground/universal-translator v0.18.0 // indirect
 	github.com/go-playground/validator/v10 v10.10.0 // indirect
