@@ -2,8 +2,6 @@ package graph
 
 import (
 	"context"
-	"fmt"
-	"math/rand"
 
 	"github.com/do-it-if-i-can/server/graph/generated"
 	"github.com/do-it-if-i-can/server/graph/model"
@@ -27,13 +25,14 @@ type queryResolver struct{ *Resolver }
 // mutation ----------------------------------------------
 
 func (r *mutationResolver) CreateTodo(ctx context.Context, input model.NewTodo) (*model.Todo, error) {
-
 	todo := &model.Todo{
-		Title:  input.Title,
-		ID:     fmt.Sprintf("T%d", rand.Int()),
-		UserID: input.UserID,
+		Title:    input.Title,
+		Category: input.Category,
+		UserID:   input.UserID,
 	}
-	fmt.Println("completed dummy create todo.")
+	if err := r.DB.Create(&todo).Error; err != nil {
+		return nil, err
+	}
 	return todo, nil
 }
 
