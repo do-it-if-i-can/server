@@ -7,6 +7,7 @@ import (
 
 	"github.com/do-it-if-i-can/server/graph/generated"
 	"github.com/do-it-if-i-can/server/graph/model"
+	"gorm.io/gorm"
 )
 
 // This file will not be regenerated automatically.
@@ -14,7 +15,7 @@ import (
 // It serves as dependency injection for your app, add any dependencies you require here.
 
 type Resolver struct {
-	todos []*model.Todo
+	DB *gorm.DB
 }
 
 func (r *Resolver) Mutation() generated.MutationResolver { return &mutationResolver{r} }
@@ -29,14 +30,15 @@ func (r *mutationResolver) CreateTodo(ctx context.Context, input model.NewTodo) 
 	todo := &model.Todo{
 		Title:  input.Title,
 		ID:     fmt.Sprintf("T%d", rand.Int()),
-		UserID: input.UserID, // fix this line
+		UserID: input.UserID,
 	}
-	r.todos = append(r.todos, todo)
+	fmt.Println("completed dummy create todo.")
 	return todo, nil
 }
 
 // query  ----------------------------------------------
 
 func (r *queryResolver) Todos(ctx context.Context, category *model.Category) ([]*model.Todo, error) {
-	return r.todos, nil
+	array := []*model.Todo{}
+	return array, nil
 }
