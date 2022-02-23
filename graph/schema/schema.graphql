@@ -1,0 +1,45 @@
+scalar DateTime
+
+enum Category {
+  TODAY
+  TOMORROW
+  SOMEDAY
+}
+
+type User {
+  id: ID!
+  name: String!
+  avatar: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+
+  todos: [Todo]!
+}
+
+type Todo {
+  id: ID!
+  category: Category!
+  done: Boolean!
+  priority: Int!
+  title: String!
+  description: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+
+  user: User!
+}
+
+type Query {
+  todos(category: Category): [Todo!]!
+}
+
+input NewTodo {
+  userId: String!
+  category: Category!
+  title: String!
+  description: String
+}
+
+type Mutation {
+  createTodo(input: NewTodo!): Todo!
+}

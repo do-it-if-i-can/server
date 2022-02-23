@@ -1,6 +1,6 @@
 # Where are all the schema files located? globs are supported eg  src/**/*.graphqls
 schema:
-  - graph/schema/*.graphqls
+  - graph/schema/*.graphql
 
 # Where should the generated server code go?
 exec:
@@ -14,7 +14,7 @@ exec:
 
 # Where should any generated models go?
 model:
-  filename: graph/model/*.go
+  filename: graph/model/models_gen.go
   package: model
 
 # Where should the resolver implementations go?
