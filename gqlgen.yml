@@ -57,3 +57,9 @@ models:
   DateTime:
     model:
       - github.com/do-it-if-i-can/server/graph/model.DateTime
+  Todo:
+    model:
+      - github.com/do-it-if-i-can/server/graph/model.Todo
+  User:
+    model:
+      - - github.com/do-it-if-i-can/server/graph/model.User
