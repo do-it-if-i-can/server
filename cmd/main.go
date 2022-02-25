@@ -1,14 +1,15 @@
 package main
 
 import (
+	"bytes"
+	"fmt"
+	"io"
+	"io/ioutil"
 	"log"
-	"net/http"
 	"os"
 
-	"github.com/99designs/gqlgen/graphql/handler"
-	"github.com/99designs/gqlgen/graphql/playground"
-	"github.com/do-it-if-i-can/server/graph"
-	"github.com/do-it-if-i-can/server/graph/generated"
+	"github.com/do-it-if-i-can/server/lib"
+	"github.com/gin-gonic/gin"
 )
 
 const defaultPort = "8080"
@@ -19,11 +20,33 @@ func main() {
 		port = defaultPort
 	}
 
-	srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: &graph.Resolver{}}))
-
-	http.Handle("/", playground.Handler("GraphQL playground", "/query"))
-	http.Handle("/query", srv)
+	// Setting up Gin
+	r := gin.Default()
+	r.Use(RequestLogger()) // logging request body
+	r.POST("/query", lib.GraphqlHandler())
+	r.GET("/", lib.PlaygroundHandler())
+	r.Run()
 
 	log.Printf("connect to http://localhost:%s/ for GraphQL playground", port)
-	log.Fatal(http.ListenAndServe(":"+port, nil))
+}
+
+func RequestLogger() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		buf, _ := ioutil.ReadAll(c.Request.Body)
+		rdr1 := ioutil.NopCloser(bytes.NewBuffer(buf))
+		rdr2 := ioutil.NopCloser(bytes.NewBuffer(buf)) //We have to create a new Buffer, because rdr1 will be read.
+
+		fmt.Println(readBody(rdr1)) // Print request body
+
+		c.Request.Body = rdr2
+		c.Next()
+	}
+}
+
+func readBody(reader io.Reader) string {
+	buf := new(bytes.Buffer)
+	buf.ReadFrom(reader)
+
+	s := buf.String()
+	return s
 }

@@ -18,10 +18,10 @@ model:
   package: model
 
 # Where should the resolver implementations go?
-resolver:
-  layout: follow-schema
-  dir: graph
-  package: graph
+# resolver:
+#   layout: follow-schema
+#   dir: graph
+#   package: graph
 
 # Optional: turn on use `gqlgen:"fieldName"` tags in your models
 # struct_tag: json
@@ -55,5 +55,10 @@ models:
       - github.com/99designs/gqlgen/graphql.Int64
       - github.com/99designs/gqlgen/graphql.Int32
   DateTime:
-    model:
-      - github.com/do-it-if-i-can/server/graph/model.DateTime
+    model: "github.com/do-it-if-i-can/server/graph/model.DateTime"
+  Todo:
+    model: "github.com/do-it-if-i-can/server/graph/model.Todo"
+  User:
+    model: "github.com/do-it-if-i-can/server/graph/model.User"
+  Uint32:
+    model: "github.com/do-it-if-i-can/server/graph/model.Uint32"

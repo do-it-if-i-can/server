@@ -1,4 +1,5 @@
 scalar DateTime
+scalar Uint32
 
 enum Category {
   TODAY
@@ -7,7 +8,7 @@ enum Category {
 }
 
 type User {
-  id: ID!
+  id: Uint32!
   name: String!
   avatar: String
   createdAt: DateTime!
@@ -17,7 +18,7 @@ type User {
 }
 
 type Todo {
-  id: ID!
+  id: Uint32!
   category: Category!
   done: Boolean!
   priority: Int!
@@ -29,15 +30,20 @@ type Todo {
   user: User!
 }
 
-type Query {
-  todos(category: Category): [Todo!]!
+input GetTodosByCategory {
+  userId: Uint32!
+  category: Category!
 }
 
 input NewTodo {
-  userId: String!
+  userId: Uint32!
   category: Category!
   title: String!
   description: String
+}
+
+type Query {
+  getTodosByCategory(input: GetTodosByCategory!): [Todo!]!
 }
 
 type Mutation {
