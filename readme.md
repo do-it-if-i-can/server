@@ -36,6 +36,12 @@ go mod vendor
 - deploy
 → TODO: デプロイ用workflow作る
 
+- access to local db
+
+```
+mysql -h 0.0.0.0 --port 3306 -u root
+```
+
 ## 技術
 
 - Docker, docker-compose

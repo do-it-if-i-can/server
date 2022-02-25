@@ -35,6 +35,10 @@ input GetTodosByCategory {
   category: Category!
 }
 
+input GetUserById {
+  userId: Uint32!
+}
+
 input NewTodo {
   userId: Uint32!
   category: Category!

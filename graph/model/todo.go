@@ -4,6 +4,7 @@ import (
 	"time"
 )
 
+// input-----------------------------------------
 type NewTodo struct {
 	UserID      uint32   `json:"user_id"`
 	Category    Category `json:"category"`
@@ -11,11 +12,16 @@ type NewTodo struct {
 	Description string   `json:"description"`
 }
 
+type GetUserByID struct {
+	UserID uint32 `json:"userId"`
+}
+
 type GetTodosByCategory struct {
 	UserID   uint32   `json:"user_id"`
 	Category Category `json:"category"`
 }
 
+// model-----------------------------------------
 type Todo struct {
 	ID          uint32    `json:"id"`
 	Category    Category  `json:"category"`

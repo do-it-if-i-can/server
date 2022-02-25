@@ -38,6 +38,14 @@ func (r *mutationResolver) CreateTodo(ctx context.Context, input model.NewTodo) 
 
 // query  ----------------------------------------------
 
+func (r *queryResolver) GetUser(ctx context.Context, input model.GetUserByID) (*model.User, error) {
+	user := &model.User{}
+	if err := r.DB.First(&user, input.UserID).Error; err != nil {
+		return nil, err
+	}
+	return user, nil
+}
+
 func (r *queryResolver) GetTodosByCategory(ctx context.Context, input model.GetTodosByCategory) ([]*model.Todo, error) {
 	todos := []*model.Todo{}
 	if err := r.DB.Where(&model.Todo{UserID: input.UserID, Category: input.Category}).Find(&todos).Error; err != nil {

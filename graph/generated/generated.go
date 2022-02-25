@@ -326,6 +326,10 @@ input GetTodosByCategory {
   category: Category!
 }
 
+input GetUserById {
+  userId: Uint32!
+}
+
 input NewTodo {
   userId: Uint32!
   category: Category!
@@ -2249,6 +2253,29 @@ func (ec *executionContext) unmarshalInputGetTodosByCategory(ctx context.Context
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("category"))
 			it.Category, err = ec.unmarshalNCategory2githubᚗcomᚋdoᚑitᚑifᚑiᚑcanᚋserverᚋgraphᚋmodelᚐCategory(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		}
+	}
+
+	return it, nil
+}
+
+func (ec *executionContext) unmarshalInputGetUserById(ctx context.Context, obj interface{}) (model.GetUserByID, error) {
+	var it model.GetUserByID
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
+
+	for k, v := range asMap {
+		switch k {
+		case "userId":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("userId"))
+			it.UserID, err = ec.unmarshalNUint322uint32(ctx, v)
 			if err != nil {
 				return it, err
 			}
