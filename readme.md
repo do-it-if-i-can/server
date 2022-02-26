@@ -39,7 +39,7 @@ go mod vendor
 - access to local db
 
 ```
-mysql -h 0.0.0.0 --port 3306 -u root
+mysql -h 0.0.0.0 -P 3306 -u root -p
 ```
 
 ## 技術
