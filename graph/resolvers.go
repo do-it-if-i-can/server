@@ -38,7 +38,7 @@ func (r *mutationResolver) CreateTodo(ctx context.Context, input model.NewTodo) 
 
 // query  ----------------------------------------------
 
-func (r *queryResolver) GetUser(ctx context.Context, input model.GetUserByID) (*model.User, error) {
+func (r *queryResolver) GetUserByID(ctx context.Context, input model.GetUserByID) (*model.User, error) {
 	user := &model.User{}
 	if err := r.DB.First(&user, input.UserID).Error; err != nil {
 		return nil, err

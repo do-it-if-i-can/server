@@ -50,6 +50,7 @@ type ComplexityRoot struct {
 
 	Query struct {
 		GetTodosByCategory func(childComplexity int, input model.GetTodosByCategory) int
+		GetUserByID        func(childComplexity int, input model.GetUserByID) int
 	}
 
 	Todo struct {
@@ -79,6 +80,7 @@ type MutationResolver interface {
 }
 type QueryResolver interface {
 	GetTodosByCategory(ctx context.Context, input model.GetTodosByCategory) ([]*model.Todo, error)
+	GetUserByID(ctx context.Context, input model.GetUserByID) (*model.User, error)
 }
 
 type executableSchema struct {
@@ -119,6 +121,18 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.Query.GetTodosByCategory(childComplexity, args["input"].(model.GetTodosByCategory)), true
+
+	case "Query.getUserById":
+		if e.complexity.Query.GetUserByID == nil {
+			break
+		}
+
+		args, err := ec.field_Query_getUserById_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Query.GetUserByID(childComplexity, args["input"].(model.GetUserByID)), true
 
 	case "Todo.category":
 		if e.complexity.Todo.Category == nil {
@@ -339,6 +353,7 @@ input NewTodo {
 
 type Query {
   getTodosByCategory(input: GetTodosByCategory!): [Todo!]!
+  getUserById(input: GetUserById!): User
 }
 
 type Mutation {
@@ -389,6 +404,21 @@ func (ec *executionContext) field_Query_getTodosByCategory_args(ctx context.Cont
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
 		arg0, err = ec.unmarshalNGetTodosByCategory2githubᚗcomᚋdoᚑitᚑifᚑiᚑcanᚋserverᚋgraphᚋmodelᚐGetTodosByCategory(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["input"] = arg0
+	return args, nil
+}
+
+func (ec *executionContext) field_Query_getUserById_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 model.GetUserByID
+	if tmp, ok := rawArgs["input"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
+		arg0, err = ec.unmarshalNGetUserById2githubᚗcomᚋdoᚑitᚑifᚑiᚑcanᚋserverᚋgraphᚋmodelᚐGetUserByID(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -517,6 +547,45 @@ func (ec *executionContext) _Query_getTodosByCategory(ctx context.Context, field
 	res := resTmp.([]*model.Todo)
 	fc.Result = res
 	return ec.marshalNTodo2ᚕᚖgithubᚗcomᚋdoᚑitᚑifᚑiᚑcanᚋserverᚋgraphᚋmodelᚐTodoᚄ(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Query_getUserById(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "Query",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   true,
+		IsResolver: true,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	rawArgs := field.ArgumentMap(ec.Variables)
+	args, err := ec.field_Query_getUserById_args(ctx, rawArgs)
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	fc.Args = args
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Query().GetUserByID(rctx, args["input"].(model.GetUserByID))
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*model.User)
+	fc.Result = res
+	return ec.marshalOUser2ᚖgithubᚗcomᚋdoᚑitᚑifᚑiᚑcanᚋserverᚋgraphᚋmodelᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query___type(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -2422,6 +2491,26 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 			out.Concurrently(i, func() graphql.Marshaler {
 				return rrm(innerCtx)
 			})
+		case "getUserById":
+			field := field
+
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Query_getUserById(ctx, field)
+				return res
+			}
+
+			rrm := func(ctx context.Context) graphql.Marshaler {
+				return ec.OperationContext.RootResolverMiddleware(ctx, innerFunc)
+			}
+
+			out.Concurrently(i, func() graphql.Marshaler {
+				return rrm(innerCtx)
+			})
 		case "__type":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
 				return ec._Query___type(ctx, field)
@@ -3087,6 +3176,11 @@ func (ec *executionContext) unmarshalNGetTodosByCategory2githubᚗcomᚋdoᚑit�
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
+func (ec *executionContext) unmarshalNGetUserById2githubᚗcomᚋdoᚑitᚑifᚑiᚑcanᚋserverᚋgraphᚋmodelᚐGetUserByID(ctx context.Context, v interface{}) (model.GetUserByID, error) {
+	res, err := ec.unmarshalInputGetUserById(ctx, v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
 func (ec *executionContext) unmarshalNInt2int64(ctx context.Context, v interface{}) (int64, error) {
 	res, err := graphql.UnmarshalInt64(v)
 	return res, graphql.ErrorOnPath(ctx, err)
@@ -3544,6 +3638,13 @@ func (ec *executionContext) marshalOString2ᚖstring(ctx context.Context, sel as
 
 func (ec *executionContext) marshalOTodo2githubᚗcomᚋdoᚑitᚑifᚑiᚑcanᚋserverᚋgraphᚋmodelᚐTodo(ctx context.Context, sel ast.SelectionSet, v model.Todo) graphql.Marshaler {
 	return ec._Todo(ctx, sel, &v)
+}
+
+func (ec *executionContext) marshalOUser2ᚖgithubᚗcomᚋdoᚑitᚑifᚑiᚑcanᚋserverᚋgraphᚋmodelᚐUser(ctx context.Context, sel ast.SelectionSet, v *model.User) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._User(ctx, sel, v)
 }
 
 func (ec *executionContext) marshalO__EnumValue2ᚕgithubᚗcomᚋ99designsᚋgqlgenᚋgraphqlᚋintrospectionᚐEnumValueᚄ(ctx context.Context, sel ast.SelectionSet, v []introspection.EnumValue) graphql.Marshaler {

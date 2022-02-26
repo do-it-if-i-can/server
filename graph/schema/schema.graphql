@@ -48,6 +48,7 @@ input NewTodo {
 
 type Query {
   getTodosByCategory(input: GetTodosByCategory!): [Todo!]!
+  getUserById(input: GetUserById!): User
 }
 
 type Mutation {
