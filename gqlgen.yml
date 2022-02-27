@@ -60,5 +60,5 @@ models:
     model: "github.com/do-it-if-i-can/server/graph/model.Todo"
   User:
     model: "github.com/do-it-if-i-can/server/graph/model.User"
-  Uint32:
-    model: "github.com/do-it-if-i-can/server/graph/model.Uint32"
+  Uint:
+    model: "github.com/do-it-if-i-can/server/graph/model.Uint"
