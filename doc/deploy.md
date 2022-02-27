@@ -9,6 +9,20 @@ dockerコマンドたちを再実行して以下のコマンドを実行する�
 gcloud run deploy cloudrun-srv --image=gcr.io/qin-todo-341312/qin-todo-api:latest --region=asia-northeast1
 ```
 
+**本番環境への環境変数の反映**
+
+- 新しい値
+
+```
+gcloud run deploy cloudrun-srv --image=gcr.io/qin-todo-341312/qin-todo-api:latest --region=asia-northeast1 --set-env-vars "[:KEY]=[:VALUE]"
+```
+
+- 値の更新
+
+```
+gcloud run deploy cloudrun-srv --image=gcr.io/qin-todo-341312/qin-todo-api:latest --region=asia-northeast1 --update-env-vars "[:KEY]=[:VALUE]"
+```
+
 ## GCRでプロジェクト作成しGCP有効にする
 
 1. qin-todoでプロジェクト作成

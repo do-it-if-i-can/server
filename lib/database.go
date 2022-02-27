@@ -12,11 +12,13 @@ import (
 )
 
 func ConnectDatabase() (*gorm.DB, error) {
+	// FIXME: 本番環境では無視したいけどやり方わからない
 	err := godotenv.Load(".env")
 	if err != nil {
-		fmt.Printf("loading failed var from env: %v", err)
+		fmt.Printf("not found env file")
 	}
 
+	// ローカルでは.envから読み込んだ値, 本番ではcloud runに設定した同名のPlanetScaleへのDSNが読み込めるはず
 	dsn := os.Getenv("MYSQL_DSN")
 	sqlDB, err := sql.Open("mysql", dsn)
 	if err != nil {
