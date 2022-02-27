@@ -25,7 +25,7 @@ type GetTodosByCategory struct {
 
 type Todo struct {
 	gorm.Model
-	UserID      uint     `gorm:"not null"`
+	UserID      uint     `gorm:"not null, column:user_id"`
 	Category    Category `gorm:"size:128"`
 	Done        bool     `gorm:"default:false"`
 	Priority    int64    `gorm:"not null"`
