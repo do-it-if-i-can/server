@@ -1,12 +1,12 @@
 package model
 
-import "time"
+import (
+	"gorm.io/gorm"
+)
 
 type User struct {
-	ID        uint32    `json:"id"`
-	Name      string    `json:"name"`
-	Avatar    *string   `json:"avatar"`
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
-	Todos     []Todo    `json:"todos"`
+	gorm.Model
+	Name   string  `json:"name"`
+	Avatar *string `json:"avatar"`
+	Todos  []Todo  `json:"todos"`
 }

@@ -304,7 +304,7 @@ func (ec *executionContext) introspectType(name string) (*introspection.Type, er
 
 var sources = []*ast.Source{
 	{Name: "graph/schema/schema.graphql", Input: `scalar DateTime
-scalar Uint32
+scalar Uint
 
 enum Category {
   TODAY
@@ -313,7 +313,7 @@ enum Category {
 }
 
 type User {
-  id: Uint32!
+  id: Uint!
   name: String!
   avatar: String
   createdAt: DateTime!
@@ -323,7 +323,7 @@ type User {
 }
 
 type Todo {
-  id: Uint32!
+  id: Uint!
   category: Category!
   done: Boolean!
   priority: Int!
@@ -336,16 +336,16 @@ type Todo {
 }
 
 input GetTodosByCategory {
-  userId: Uint32!
+  userId: Uint!
   category: Category!
 }
 
 input GetUserById {
-  userId: Uint32!
+  userId: Uint!
 }
 
 input NewTodo {
-  userId: Uint32!
+  userId: Uint!
   category: Category!
   title: String!
   description: String
@@ -689,9 +689,9 @@ func (ec *executionContext) _Todo_id(ctx context.Context, field graphql.Collecte
 		}
 		return graphql.Null
 	}
-	res := resTmp.(uint32)
+	res := resTmp.(uint)
 	fc.Result = res
-	return ec.marshalNUint322uint32(ctx, field.Selections, res)
+	return ec.marshalNUint2uint(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Todo_category(ctx context.Context, field graphql.CollectedField, obj *model.Todo) (ret graphql.Marshaler) {
@@ -1001,9 +1001,9 @@ func (ec *executionContext) _User_id(ctx context.Context, field graphql.Collecte
 		}
 		return graphql.Null
 	}
-	res := resTmp.(uint32)
+	res := resTmp.(uint)
 	fc.Result = res
-	return ec.marshalNUint322uint32(ctx, field.Selections, res)
+	return ec.marshalNUint2uint(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _User_name(ctx context.Context, field graphql.CollectedField, obj *model.User) (ret graphql.Marshaler) {
@@ -2313,7 +2313,7 @@ func (ec *executionContext) unmarshalInputGetTodosByCategory(ctx context.Context
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("userId"))
-			it.UserID, err = ec.unmarshalNUint322uint32(ctx, v)
+			it.UserID, err = ec.unmarshalNUint2uint(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -2344,7 +2344,7 @@ func (ec *executionContext) unmarshalInputGetUserById(ctx context.Context, obj i
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("userId"))
-			it.UserID, err = ec.unmarshalNUint322uint32(ctx, v)
+			it.UserID, err = ec.unmarshalNUint2uint(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -2367,7 +2367,7 @@ func (ec *executionContext) unmarshalInputNewTodo(ctx context.Context, obj inter
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("userId"))
-			it.UserID, err = ec.unmarshalNUint322uint32(ctx, v)
+			it.UserID, err = ec.unmarshalNUint2uint(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -3312,13 +3312,13 @@ func (ec *executionContext) marshalNTodo2ᚖgithubᚗcomᚋdoᚑitᚑifᚑiᚑca
 	return ec._Todo(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalNUint322uint32(ctx context.Context, v interface{}) (uint32, error) {
-	res, err := model.UnmarshalUint32(v)
+func (ec *executionContext) unmarshalNUint2uint(ctx context.Context, v interface{}) (uint, error) {
+	res, err := model.UnmarshalUint(v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNUint322uint32(ctx context.Context, sel ast.SelectionSet, v uint32) graphql.Marshaler {
-	res := model.MarshalUint32(v)
+func (ec *executionContext) marshalNUint2uint(ctx context.Context, sel ast.SelectionSet, v uint) graphql.Marshaler {
+	res := model.MarshalUint(v)
 	if res == graphql.Null {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")

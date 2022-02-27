@@ -1,5 +1,5 @@
 scalar DateTime
-scalar Uint32
+scalar Uint
 
 enum Category {
   TODAY
@@ -8,7 +8,7 @@ enum Category {
 }
 
 type User {
-  id: Uint32!
+  id: Uint!
   name: String!
   avatar: String
   createdAt: DateTime!
@@ -18,7 +18,7 @@ type User {
 }
 
 type Todo {
-  id: Uint32!
+  id: Uint!
   category: Category!
   done: Boolean!
   priority: Int!
@@ -31,16 +31,16 @@ type Todo {
 }
 
 input GetTodosByCategory {
-  userId: Uint32!
+  userId: Uint!
   category: Category!
 }
 
 input GetUserById {
-  userId: Uint32!
+  userId: Uint!
 }
 
 input NewTodo {
-  userId: Uint32!
+  userId: Uint!
   category: Category!
   title: String!
   description: String
