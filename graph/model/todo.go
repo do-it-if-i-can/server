@@ -25,11 +25,11 @@ type GetTodosByCategory struct {
 
 type Todo struct {
 	gorm.Model
-	Category    Category `gorm:"not null"`
-	Done        bool     `json:"done"`
-	Priority    int64    `json:"priority"`
-	Title       string   `json:"title"`
-	Description string   `json:"description"`
-	UserID      uint     `json:"user_id"`
-	User        User     `json:"user"`
+	UserID      uint     `gorm:"not null"`
+	Category    Category `gorm:"size:128"`
+	Done        bool     `gorm:"default:false"`
+	Priority    int64    `gorm:"not null"`
+	Title       string   `gorm:"not null"`
+	Description *string  ``
+	User        User     `gorm:"not null,foreignKey:UserID"`
 }

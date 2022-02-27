@@ -6,7 +6,7 @@ import (
 
 type User struct {
 	gorm.Model
-	Name   string  `json:"name"`
-	Avatar *string `json:"avatar"`
-	Todos  []Todo  `json:"todos"`
+	Name   string  `gorm:"not null"`
+	Avatar *string ``
+	Todos  []Todo  `gorm:"not null,references:UserID;"`
 }
