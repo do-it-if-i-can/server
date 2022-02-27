@@ -31,7 +31,7 @@ type Todo struct {
 	Priority    int64     `gorm:"not null"`
 	Title       string    `gorm:"not null"`
 	Description *string   ``
-	User        User      `gorm:"not null,foreignKey:UserID"`
+	User        User      `gorm:"not null"`
 	CreatedAt   time.Time `gorm:"autoCreateTime"`
 	UpdatedAt   time.Time `gorm:"autoUpdateTime"`
 }
