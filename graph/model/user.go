@@ -1,12 +1,12 @@
 package model
 
-import (
-	"gorm.io/gorm"
-)
+import "time"
 
 type User struct {
-	gorm.Model
-	Name   string  `gorm:"not null"`
-	Avatar *string ``
-	Todos  []Todo  `gorm:"not null,references:UserID;"`
+	ID        uint      `gorm:"primarykey"`
+	Name      string    `gorm:"not null"`
+	Avatar    *string   ``
+	Todos     []Todo    `gorm:"not null,references:UserID;"`
+	CreatedAt time.Time `gorm:"autoCreateTime"`
+	UpdatedAt time.Time `gorm:"autoUpdateTime"`
 }
