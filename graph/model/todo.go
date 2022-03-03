@@ -6,18 +6,18 @@ import (
 
 // input-----------------------------------------
 type NewTodo struct {
-	UserID      uint     `json:"user_id"`
-	Category    Category `json:"category"`
+	UserID      string   `json:"user_id"`
 	Title       string   `json:"title"`
+	Category    Category `json:"category"`
 	Description string   `json:"description"`
 }
 
 type GetUserByID struct {
-	UserID uint `json:"userId"`
+	UserID string `json:"userId"`
 }
 
 type GetTodosByCategory struct {
-	UserID   uint     `json:"user_id"`
+	UserID   string   `json:"user_id"`
 	Category Category `json:"category"`
 }
 
@@ -25,7 +25,7 @@ type GetTodosByCategory struct {
 
 type Todo struct {
 	ID          uint      `gorm:"primarykey"`
-	UserID      uint      `gorm:"not null, column:user_id"`
+	UserID      string    `gorm:"not null, column:user_id"`
 	Category    Category  `gorm:"size:128"`
 	Done        bool      `gorm:"default:false"`
 	Priority    int64     `gorm:"not null"`

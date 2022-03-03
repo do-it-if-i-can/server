@@ -8,8 +8,9 @@ enum Category {
 }
 
 type User {
-  id: Uint!
-  name: String!
+  id: String!
+  displayName: String!
+  userName: String!
   avatar: String
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -31,16 +32,16 @@ type Todo {
 }
 
 input GetTodosByCategory {
-  userId: Uint!
+  userId: String!
   category: Category!
 }
 
 input GetUserById {
-  userId: Uint!
+  userId: String!
 }
 
 input NewTodo {
-  userId: Uint!
+  userId: String!
   category: Category!
   title: String!
   description: String

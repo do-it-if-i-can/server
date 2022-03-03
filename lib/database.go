@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/do-it-if-i-can/server/graph/model"
 	"github.com/joho/godotenv"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -32,13 +31,13 @@ func ConnectDatabase() (*gorm.DB, error) {
 		return nil, err
 	}
 
-	err = db.AutoMigrate(&model.User{})
-	if err != nil {
-		return nil, err
-	}
-	err = db.AutoMigrate(&model.Todo{})
-	if err != nil {
-		return nil, err
-	}
+	// err = db.AutoMigrate(&model.User{})
+	// if err != nil {
+	// 	return nil, err
+	// }
+	// err = db.AutoMigrate(&model.Todo{})
+	// if err != nil {
+	// 	return nil, err
+	// }
 	return db, nil
 }
