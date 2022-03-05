@@ -15,12 +15,12 @@ type User struct {
 
 // input-----------------------------------------
 
-type GetUserById struct {
-	UserId string
+type GetUserByID struct {
+	UserID string
 }
 
 type EditUser struct {
-	UserId      string
+	UserID      string
 	DisplayName string
 	UserName    string
 	Avatar      string

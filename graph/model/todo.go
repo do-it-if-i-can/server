@@ -37,8 +37,8 @@ type NewTodo struct {
 
 type EditTodo struct {
 	TodoID      uint
-	title       string
-	description string
+	Title       string
+	Description string
 }
 
 type DeleteTodo struct {
@@ -51,6 +51,6 @@ type CopyTodo struct {
 
 type MoveTodo struct {
 	TodoID       uint
-	category     Category
-	afterTodoIds []uint
+	Category     Category
+	AfterTodoIds []uint
 }

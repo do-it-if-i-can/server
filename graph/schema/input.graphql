@@ -38,11 +38,11 @@ input EditTodo {
   description: String
 }
 
-input DeleteTodo {
+input CopyTodo {
   todoId: Uint!
 }
 
-input CopyTodo {
+input DeleteTodo {
   todoId: Uint!
 }
 

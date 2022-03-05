@@ -123,3 +123,7 @@ query findTodos {
   }
 }
 ```
+
+# エラー解決集
+## ResolverRootに変なのが入り込む場合
+- goのmodelパッケージの中のstructで大文字から初めてないやつがないか確認する
