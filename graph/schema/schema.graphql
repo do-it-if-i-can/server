@@ -1,52 +1,6 @@
 scalar DateTime
 scalar Uint
 
-enum Category {
-  TODAY
-  TOMORROW
-  SOMEDAY
-}
-
-type User {
-  id: String!
-  displayName: String!
-  userName: String!
-  avatar: String
-  createdAt: DateTime!
-  updatedAt: DateTime!
-
-  todos: [Todo]!
-}
-
-type Todo {
-  id: Uint!
-  category: Category!
-  done: Boolean!
-  priority: Int!
-  title: String!
-  description: String
-  createdAt: DateTime!
-  updatedAt: DateTime!
-
-  user: User!
-}
-
-input GetTodosByCategory {
-  userId: String!
-  category: Category!
-}
-
-input GetUserById {
-  userId: String!
-}
-
-input NewTodo {
-  userId: String!
-  category: Category!
-  title: String!
-  description: String
-}
-
 type Query {
   getTodosByCategory(input: GetTodosByCategory!): [Todo!]!
   getUserById(input: GetUserById!): User

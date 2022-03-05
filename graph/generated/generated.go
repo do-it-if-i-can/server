@@ -311,10 +311,23 @@ func (ec *executionContext) introspectType(name string) (*introspection.Type, er
 }
 
 var sources = []*ast.Source{
-	{Name: "graph/schema/schema.graphql", Input: `scalar DateTime
-scalar Uint
+	{Name: "graph/schema/input.graphql", Input: `input GetTodosByCategory {
+  userId: String!
+  category: Category!
+}
 
-enum Category {
+input GetUserById {
+  userId: String!
+}
+
+input NewTodo {
+  userId: String!
+  category: Category!
+  title: String!
+  description: String
+}
+`, BuiltIn: false},
+	{Name: "graph/schema/model.graphql", Input: `enum Category {
   TODAY
   TOMORROW
   SOMEDAY
@@ -343,22 +356,9 @@ type Todo {
 
   user: User!
 }
-
-input GetTodosByCategory {
-  userId: String!
-  category: Category!
-}
-
-input GetUserById {
-  userId: String!
-}
-
-input NewTodo {
-  userId: String!
-  category: Category!
-  title: String!
-  description: String
-}
+`, BuiltIn: false},
+	{Name: "graph/schema/schema.graphql", Input: `scalar DateTime
+scalar Uint
 
 type Query {
   getTodosByCategory(input: GetTodosByCategory!): [Todo!]!

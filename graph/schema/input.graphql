@@ -1,0 +1,15 @@
+input GetTodosByCategory {
+  userId: String!
+  category: Category!
+}
+
+input GetUserById {
+  userId: String!
+}
+
+input NewTodo {
+  userId: String!
+  category: Category!
+  title: String!
+  description: String
+}
