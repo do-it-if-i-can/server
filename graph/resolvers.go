@@ -41,16 +41,40 @@ func (r *queryResolver) GetTodosByCategory(ctx context.Context, input model.GetT
 	return todos, nil
 }
 
+func (r *queryResolver) GetTodosByUser(ctx context.Context, input model.GetTodosByUser) ([]*model.Todo, error) {
+	return nil, nil
+}
+
 // mutation ----------------------------------------------
 
-func (r *mutationResolver) CreateTodo(ctx context.Context, input model.NewTodo) (*model.Todo, error) {
+func (r *mutationResolver) EditUser(ctx context.Context, input model.EditUser) (*model.User, error) {
+	return nil, nil
+}
+
+func (r *mutationResolver) CreateTodo(ctx context.Context, input model.NewTodo) (bool, error) {
 	todo := &model.Todo{
 		Title:    input.Title,
 		Category: input.Category,
 		UserID:   input.UserID,
 	}
 	if err := r.DB.Create(&todo).Error; err != nil {
-		return nil, err
+		return false, err
 	}
-	return todo, nil
+	return true, nil
+}
+
+func (r *mutationResolver) EditTodo(ctx context.Context, input model.EditTodo) (bool, error) {
+	return true, nil
+}
+
+func (r *mutationResolver) DeleteTodo(ctx context.Context, input model.DeleteTodo) (bool, error) {
+	return true, nil
+}
+
+func (r *mutationResolver) CopyTodo(ctx context.Context, input model.CopyTodo) (bool, error) {
+	return true, nil
+}
+
+func (r *mutationResolver) MoveTodo(ctx context.Context, input model.MoveTodo) (bool, error) {
+	return true, nil
 }
