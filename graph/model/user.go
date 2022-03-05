@@ -2,11 +2,26 @@ package model
 
 import "time"
 
+// model-----------------------------------------
 type User struct {
-	ID        uint32    `json:"id"`
-	Name      string    `json:"name"`
-	Avatar    *string   `json:"avatar"`
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
-	Todos     []Todo    `json:"todos"`
+	ID          string    `gorm:"primarykey"`
+	DisplayName string    `gorm:"not null"`
+	UserName    string    `gorm:"not null"`
+	Avatar      *string   ``
+	Todos       []Todo    `gorm:"not null"`
+	CreatedAt   time.Time `gorm:"autoCreateTime"`
+	UpdatedAt   time.Time `gorm:"autoUpdateTime"`
+}
+
+// input-----------------------------------------
+
+type GetUserByID struct {
+	UserID string
+}
+
+type EditUser struct {
+	UserID      string
+	DisplayName string
+	UserName    string
+	Avatar      string
 }

@@ -1,55 +1,21 @@
 scalar DateTime
-scalar Uint32
-
-enum Category {
-  TODAY
-  TOMORROW
-  SOMEDAY
-}
-
-type User {
-  id: Uint32!
-  name: String!
-  avatar: String
-  createdAt: DateTime!
-  updatedAt: DateTime!
-
-  todos: [Todo]!
-}
-
-type Todo {
-  id: Uint32!
-  category: Category!
-  done: Boolean!
-  priority: Int!
-  title: String!
-  description: String
-  createdAt: DateTime!
-  updatedAt: DateTime!
-
-  user: User!
-}
-
-input GetTodosByCategory {
-  userId: Uint32!
-  category: Category!
-}
-
-input GetUserById {
-  userId: Uint32!
-}
-
-input NewTodo {
-  userId: Uint32!
-  category: Category!
-  title: String!
-  description: String
-}
+scalar Uint
 
 type Query {
+  # user
+  getUserById(input: GetUserById!): User
+  # todo
   getTodosByCategory(input: GetTodosByCategory!): [Todo!]!
+  getTodosByUser(input: GetTodosByUser!): [Todo]!
 }
 
 type Mutation {
-  createTodo(input: NewTodo!): Todo!
+  # user
+  editUser(input: EditUser!): User!
+  # todo
+  createTodo(input: NewTodo!): Boolean!
+  editTodo(input: EditTodo!): Boolean!
+  deleteTodo(input: DeleteTodo!): Boolean!
+  copyTodo(input: CopyTodo!): Boolean!
+  moveTodo(input: MoveTodo!): Boolean!
 }

@@ -22,7 +22,8 @@ func main() {
 
 	// Setting up Gin
 	r := gin.Default()
-	r.Use(RequestLogger()) // logging request body
+	// for logging request body
+	r.Use(RequestLogger())
 	r.POST("/query", lib.GraphqlHandler())
 	r.GET("/", lib.PlaygroundHandler())
 	r.Run()

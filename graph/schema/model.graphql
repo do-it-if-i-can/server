@@ -1,0 +1,27 @@
+enum Category {
+  TODAY
+  TOMORROW
+  SOMEDAY
+}
+
+type User {
+  id: ID!
+  displayName: String!
+  userName: String!
+  avatar: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  todos: [Todo]!
+}
+
+type Todo {
+  id: Uint!
+  category: Category!
+  done: Boolean!
+  priority: Int!
+  title: String!
+  description: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  user: User!
+}

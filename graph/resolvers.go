@@ -22,24 +22,11 @@ func (r *Resolver) Query() generated.QueryResolver       { return &queryResolver
 type mutationResolver struct{ *Resolver }
 type queryResolver struct{ *Resolver }
 
-// mutation ----------------------------------------------
-
-func (r *mutationResolver) CreateTodo(ctx context.Context, input model.NewTodo) (*model.Todo, error) {
-	todo := &model.Todo{
-		Title:    input.Title,
-		Category: input.Category,
-		UserID:   input.UserID,
-	}
-	if err := r.DB.Create(&todo).Error; err != nil {
-		return nil, err
-	}
-	return todo, nil
-}
-
 // query  ----------------------------------------------
 
-func (r *queryResolver) GetUser(ctx context.Context, input model.GetUserByID) (*model.User, error) {
+func (r *queryResolver) GetUserByID(ctx context.Context, input model.GetUserByID) (*model.User, error) {
 	user := &model.User{}
+	// TODO: ネストしたモデル情報がとれてなさそうなので調査
 	if err := r.DB.First(&user, input.UserID).Error; err != nil {
 		return nil, err
 	}
@@ -52,4 +39,18 @@ func (r *queryResolver) GetTodosByCategory(ctx context.Context, input model.GetT
 		return nil, err
 	}
 	return todos, nil
+}
+
+// mutation ----------------------------------------------
+
+func (r *mutationResolver) CreateTodo(ctx context.Context, input model.NewTodo) (*model.Todo, error) {
+	todo := &model.Todo{
+		Title:    input.Title,
+		Category: input.Category,
+		UserID:   input.UserID,
+	}
+	if err := r.DB.Create(&todo).Error; err != nil {
+		return nil, err
+	}
+	return todo, nil
 }

@@ -1,0 +1,53 @@
+# query input ------------------------
+# user
+
+input GetUserById {
+  userId: ID!
+}
+
+# todo
+input GetTodosByCategory {
+  userId: ID!
+  category: Category!
+}
+
+input GetTodosByUser {
+  userId: ID!
+}
+
+# mutation input ------------------------
+# user
+input EditUser {
+  userId: ID!
+  displayName: String
+  userName: String
+  avatar: String
+}
+
+# todo
+input NewTodo {
+  userId: ID!
+  category: Category!
+  title: String!
+  description: String
+}
+
+input EditTodo {
+  todoId: Uint!
+  title: String
+  description: String
+}
+
+input CopyTodo {
+  todoId: Uint!
+}
+
+input DeleteTodo {
+  todoId: Uint!
+}
+
+input MoveTodo {
+  todoId: Uint!
+  category: Category!
+  afterTodoIds: [Uint!]!
+}

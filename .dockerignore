@@ -1,0 +1,9 @@
+# folders
+data
+vendor
+terraform
+
+# files
+.env
+.env.example
+tools.go
