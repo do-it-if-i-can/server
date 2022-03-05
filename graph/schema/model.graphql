@@ -5,13 +5,12 @@ enum Category {
 }
 
 type User {
-  id: String!
+  id: ID!
   displayName: String!
   userName: String!
   avatar: String
   createdAt: DateTime!
   updatedAt: DateTime!
-
   todos: [Todo]!
 }
 
@@ -24,6 +23,5 @@ type Todo {
   description: String
   createdAt: DateTime!
   updatedAt: DateTime!
-
   user: User!
 }
