@@ -35,10 +35,14 @@ type NewTodo struct {
 	Description string   `json:"description"`
 }
 
-type EditTodo struct {
+type UpdateTodo struct {
 	TodoID      uint
 	Title       string
 	Description string
+}
+type UpdateTodoDone struct {
+	TodoID uint
+	Done   bool
 }
 
 type DeleteTodo struct {

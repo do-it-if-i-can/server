@@ -14,7 +14,8 @@ type Mutation {
   editUser(input: EditUser!): User!
   # todo
   createTodo(input: NewTodo!): Boolean!
-  editTodo(input: EditTodo!): Boolean!
+  updateTodo(input: UpdateTodo!): Boolean!
+  updateTodoDone(input: UpdateTodoDone!): Boolean!
   deleteTodo(input: DeleteTodo!): Boolean!
   copyTodo(input: CopyTodo!): Boolean!
   moveTodo(input: MoveTodo!): Boolean!

@@ -32,10 +32,15 @@ input NewTodo {
   description: String
 }
 
-input EditTodo {
+input UpdateTodo {
   todoId: Uint!
-  title: String
+  title: String!
   description: String
+}
+
+input UpdateTodoDone {
+  todoId: Uint!
+  done: Boolean!
 }
 
 input CopyTodo {

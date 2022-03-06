@@ -63,7 +63,11 @@ func (r *mutationResolver) CreateTodo(ctx context.Context, input model.NewTodo) 
 	return true, nil
 }
 
-func (r *mutationResolver) EditTodo(ctx context.Context, input model.EditTodo) (bool, error) {
+func (r *mutationResolver) UpdateTodo(ctx context.Context, input model.UpdateTodo) (bool, error) {
+	return true, nil
+}
+
+func (r *mutationResolver) UpdateTodoDone(ctx context.Context, input model.UpdateTodoDone) (bool, error) {
 	return true, nil
 }
 
