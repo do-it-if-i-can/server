@@ -48,10 +48,10 @@ type ComplexityRoot struct {
 		CopyTodo       func(childComplexity int, input model.CopyTodo) int
 		CreateTodo     func(childComplexity int, input model.NewTodo) int
 		DeleteTodo     func(childComplexity int, input model.DeleteTodo) int
-		EditUser       func(childComplexity int, input model.EditUser) int
 		MoveTodo       func(childComplexity int, input model.MoveTodo) int
 		UpdateTodo     func(childComplexity int, input model.UpdateTodo) int
 		UpdateTodoDone func(childComplexity int, input model.UpdateTodoDone) int
+		UpsertUser     func(childComplexity int, input model.UpsertUser) int
 	}
 
 	Query struct {
@@ -84,7 +84,7 @@ type ComplexityRoot struct {
 }
 
 type MutationResolver interface {
-	EditUser(ctx context.Context, input model.EditUser) (*model.User, error)
+	UpsertUser(ctx context.Context, input model.UpsertUser) (*model.User, error)
 	CreateTodo(ctx context.Context, input model.NewTodo) (bool, error)
 	UpdateTodo(ctx context.Context, input model.UpdateTodo) (bool, error)
 	UpdateTodoDone(ctx context.Context, input model.UpdateTodoDone) (bool, error)
@@ -149,18 +149,6 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Mutation.DeleteTodo(childComplexity, args["input"].(model.DeleteTodo)), true
 
-	case "Mutation.editUser":
-		if e.complexity.Mutation.EditUser == nil {
-			break
-		}
-
-		args, err := ec.field_Mutation_editUser_args(context.TODO(), rawArgs)
-		if err != nil {
-			return 0, false
-		}
-
-		return e.complexity.Mutation.EditUser(childComplexity, args["input"].(model.EditUser)), true
-
 	case "Mutation.moveTodo":
 		if e.complexity.Mutation.MoveTodo == nil {
 			break
@@ -196,6 +184,18 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.Mutation.UpdateTodoDone(childComplexity, args["input"].(model.UpdateTodoDone)), true
+
+	case "Mutation.upsertUser":
+		if e.complexity.Mutation.UpsertUser == nil {
+			break
+		}
+
+		args, err := ec.field_Mutation_upsertUser_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Mutation.UpsertUser(childComplexity, args["input"].(model.UpsertUser)), true
 
 	case "Query.getTodosByCategory":
 		if e.complexity.Query.GetTodosByCategory == nil {
@@ -428,10 +428,10 @@ input GetTodosByUser {
 
 # mutation input ------------------------
 # user
-input EditUser {
+input UpsertUser {
   userId: ID!
-  displayName: String
-  userName: String
+  displayName: String!
+  userName: String!
   avatar: String
 }
 
@@ -509,7 +509,7 @@ type Query {
 
 type Mutation {
   # user
-  editUser(input: EditUser!): User!
+  upsertUser(input: UpsertUser!): User!
   # todo
   createTodo(input: NewTodo!): Boolean!
   updateTodo(input: UpdateTodo!): Boolean!
@@ -571,21 +571,6 @@ func (ec *executionContext) field_Mutation_deleteTodo_args(ctx context.Context, 
 	return args, nil
 }
 
-func (ec *executionContext) field_Mutation_editUser_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
-	var err error
-	args := map[string]interface{}{}
-	var arg0 model.EditUser
-	if tmp, ok := rawArgs["input"]; ok {
-		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNEditUser2githubᚗcomᚋdoᚑitᚑifᚑiᚑcanᚋserverᚋgraphᚋmodelᚐEditUser(ctx, tmp)
-		if err != nil {
-			return nil, err
-		}
-	}
-	args["input"] = arg0
-	return args, nil
-}
-
 func (ec *executionContext) field_Mutation_moveTodo_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
@@ -623,6 +608,21 @@ func (ec *executionContext) field_Mutation_updateTodo_args(ctx context.Context, 
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
 		arg0, err = ec.unmarshalNUpdateTodo2githubᚗcomᚋdoᚑitᚑifᚑiᚑcanᚋserverᚋgraphᚋmodelᚐUpdateTodo(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["input"] = arg0
+	return args, nil
+}
+
+func (ec *executionContext) field_Mutation_upsertUser_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 model.UpsertUser
+	if tmp, ok := rawArgs["input"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
+		arg0, err = ec.unmarshalNUpsertUser2githubᚗcomᚋdoᚑitᚑifᚑiᚑcanᚋserverᚋgraphᚋmodelᚐUpsertUser(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -729,7 +729,7 @@ func (ec *executionContext) field___Type_fields_args(ctx context.Context, rawArg
 
 // region    **************************** field.gotpl *****************************
 
-func (ec *executionContext) _Mutation_editUser(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+func (ec *executionContext) _Mutation_upsertUser(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -746,7 +746,7 @@ func (ec *executionContext) _Mutation_editUser(ctx context.Context, field graphq
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	rawArgs := field.ArgumentMap(ec.Variables)
-	args, err := ec.field_Mutation_editUser_args(ctx, rawArgs)
+	args, err := ec.field_Mutation_upsertUser_args(ctx, rawArgs)
 	if err != nil {
 		ec.Error(ctx, err)
 		return graphql.Null
@@ -754,7 +754,7 @@ func (ec *executionContext) _Mutation_editUser(ctx context.Context, field graphq
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().EditUser(rctx, args["input"].(model.EditUser))
+		return ec.resolvers.Mutation().UpsertUser(rctx, args["input"].(model.UpsertUser))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -2939,53 +2939,6 @@ func (ec *executionContext) unmarshalInputDeleteTodo(ctx context.Context, obj in
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputEditUser(ctx context.Context, obj interface{}) (model.EditUser, error) {
-	var it model.EditUser
-	asMap := map[string]interface{}{}
-	for k, v := range obj.(map[string]interface{}) {
-		asMap[k] = v
-	}
-
-	for k, v := range asMap {
-		switch k {
-		case "userId":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("userId"))
-			it.UserID, err = ec.unmarshalNID2string(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "displayName":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("displayName"))
-			it.DisplayName, err = ec.unmarshalOString2string(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "userName":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("userName"))
-			it.UserName, err = ec.unmarshalOString2string(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		case "avatar":
-			var err error
-
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("avatar"))
-			it.Avatar, err = ec.unmarshalOString2string(ctx, v)
-			if err != nil {
-				return it, err
-			}
-		}
-	}
-
-	return it, nil
-}
-
 func (ec *executionContext) unmarshalInputGetTodosByCategory(ctx context.Context, obj interface{}) (model.GetTodosByCategory, error) {
 	var it model.GetTodosByCategory
 	asMap := map[string]interface{}{}
@@ -3219,6 +3172,53 @@ func (ec *executionContext) unmarshalInputUpdateTodoDone(ctx context.Context, ob
 	return it, nil
 }
 
+func (ec *executionContext) unmarshalInputUpsertUser(ctx context.Context, obj interface{}) (model.UpsertUser, error) {
+	var it model.UpsertUser
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
+
+	for k, v := range asMap {
+		switch k {
+		case "userId":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("userId"))
+			it.UserID, err = ec.unmarshalNID2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "displayName":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("displayName"))
+			it.DisplayName, err = ec.unmarshalNString2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "userName":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("userName"))
+			it.UserName, err = ec.unmarshalNString2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "avatar":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("avatar"))
+			it.Avatar, err = ec.unmarshalOString2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		}
+	}
+
+	return it, nil
+}
+
 // endregion **************************** input.gotpl *****************************
 
 // region    ************************** interface.gotpl ***************************
@@ -3246,9 +3246,9 @@ func (ec *executionContext) _Mutation(ctx context.Context, sel ast.SelectionSet)
 		switch field.Name {
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("Mutation")
-		case "editUser":
+		case "upsertUser":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Mutation_editUser(ctx, field)
+				return ec._Mutation_upsertUser(ctx, field)
 			}
 
 			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, innerFunc)
@@ -4092,11 +4092,6 @@ func (ec *executionContext) unmarshalNDeleteTodo2githubᚗcomᚋdoᚑitᚑifᚑi
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNEditUser2githubᚗcomᚋdoᚑitᚑifᚑiᚑcanᚋserverᚋgraphᚋmodelᚐEditUser(ctx context.Context, v interface{}) (model.EditUser, error) {
-	res, err := ec.unmarshalInputEditUser(ctx, v)
-	return res, graphql.ErrorOnPath(ctx, err)
-}
-
 func (ec *executionContext) unmarshalNGetTodosByCategory2githubᚗcomᚋdoᚑitᚑifᚑiᚑcanᚋserverᚋgraphᚋmodelᚐGetTodosByCategory(ctx context.Context, v interface{}) (model.GetTodosByCategory, error) {
 	res, err := ec.unmarshalInputGetTodosByCategory(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
@@ -4351,6 +4346,11 @@ func (ec *executionContext) unmarshalNUpdateTodo2githubᚗcomᚋdoᚑitᚑifᚑi
 
 func (ec *executionContext) unmarshalNUpdateTodoDone2githubᚗcomᚋdoᚑitᚑifᚑiᚑcanᚋserverᚋgraphᚋmodelᚐUpdateTodoDone(ctx context.Context, v interface{}) (model.UpdateTodoDone, error) {
 	res, err := ec.unmarshalInputUpdateTodoDone(ctx, v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) unmarshalNUpsertUser2githubᚗcomᚋdoᚑitᚑifᚑiᚑcanᚋserverᚋgraphᚋmodelᚐUpsertUser(ctx context.Context, v interface{}) (model.UpsertUser, error) {
+	res, err := ec.unmarshalInputUpsertUser(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 

@@ -11,7 +11,7 @@ type Query {
 
 type Mutation {
   # user
-  editUser(input: EditUser!): User!
+  upsertUser(input: UpsertUser!): User!
   # todo
   createTodo(input: NewTodo!): Boolean!
   updateTodo(input: UpdateTodo!): Boolean!

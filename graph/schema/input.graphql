@@ -17,10 +17,10 @@ input GetTodosByUser {
 
 # mutation input ------------------------
 # user
-input EditUser {
+input UpsertUser {
   userId: ID!
-  displayName: String
-  userName: String
+  displayName: String!
+  userName: String!
   avatar: String
 }
 

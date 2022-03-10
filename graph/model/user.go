@@ -19,7 +19,7 @@ type GetUserByID struct {
 	UserID string
 }
 
-type EditUser struct {
+type UpsertUser struct {
 	UserID      string
 	DisplayName string
 	UserName    string

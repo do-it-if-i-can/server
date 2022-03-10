@@ -47,7 +47,7 @@ func (r *queryResolver) GetTodosByUser(ctx context.Context, input model.GetTodos
 
 // mutation ----------------------------------------------
 
-func (r *mutationResolver) EditUser(ctx context.Context, input model.EditUser) (*model.User, error) {
+func (r *mutationResolver) UpsertUser(ctx context.Context, input model.UpsertUser) (*model.User, error) {
 	return nil, nil
 }
 
