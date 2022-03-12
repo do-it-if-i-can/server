@@ -24,3 +24,5 @@ CREATE TABLE `todos` (
 
 -- The following will not work 😢
 -- ALTER TABLE todos ADD FOREIGN KEY (`user_id`) REFERENCES `users`(`id`);
+
+INSERT INTO users (id, display_name, user_name) VALUES ('hogehoge', 'しまぶー', 'shimabu');

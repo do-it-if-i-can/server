@@ -27,7 +27,7 @@ type queryResolver struct{ *Resolver }
 func (r *queryResolver) GetUserByID(ctx context.Context, input model.GetUserByID) (*model.User, error) {
 	user := &model.User{}
 	// TODO: ネストしたモデル情報がとれてなさそうなので調査
-	if err := r.DB.First(&user, input.UserID).Error; err != nil {
+	if err := r.DB.First(&user, "id = ?", input.UserID).Error; err != nil {
 		return nil, err
 	}
 	return user, nil
