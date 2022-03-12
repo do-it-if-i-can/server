@@ -7,7 +7,7 @@ import (
 // model-----------------------------------------
 type Todo struct {
 	ID          uint      `gorm:"primarykey"`
-	UserID      string    `gorm:"not null, column:user_id"`
+	UserID      string    `gorm:"index:idx_user_id, sort:desc, column:user_id, not null"`
 	Category    Category  `gorm:"size:64"`
 	Done        bool      `gorm:"default:false"`
 	Priority    int64     `gorm:"not null"`
