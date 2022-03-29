@@ -26,10 +26,14 @@ type queryResolver struct{ *Resolver }
 
 func (r *queryResolver) GetUserByID(ctx context.Context, input model.GetUserByID) (*model.User, error) {
 	user := &model.User{}
-	// TODO: ネストしたモデル情報がとれてなさそうなので調査
+	todos := []model.Todo{}
 	if err := r.DB.First(&user, "id = ?", input.UserID).Error; err != nil {
 		return nil, err
 	}
+	if err := r.DB.Find(&todos, "user_id = ?", input.UserID).Error; err != nil {
+		return nil, err
+	}
+	user.Todos = todos
 	return user, nil
 }
 
